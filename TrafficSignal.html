@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="stylesheet.css">
+    <title>Traffic Signal</title>
+
+    <style>
+        @keyframes round {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(480deg);
+    }
+    
+}
+@keyframes move {
+    from {
+        transform: translateX(0px);
+    }
+    to {
+        transform: rotate(1000px);
+    }
+}
+    </style>
+</head>
+<body onload="myFunction()" background="1.jpg">
+    
+    <!-- Buttons -->
+    <div id="controlPanel">
+        <h1 id="stopButton" class="button">Stop</h1>
+        <h1 id="slowButton" class="button">Go</h1>
+        <!-- <h1 id="goButton" class="button">Go</h1> -->
+    </div>
+
+    <!-- Traffic Light Bulb HTML -->
+    <div id="traffic-light">
+        <div id="stopLight" class="bulb"></div>
+        <div id="slowLight" class="bulb"></div>
+        <div id="goLight" class="bulb"></div>
+        <div class="stand"></div>
+    </div>
+    
+    <!-- Car HTML -->
+        <div class="car_structure_uper" id="carr_structure">
+            <ul>
+                <li class="window1"></li>
+                <li class="window2"></li>
+            </ul>
+                <div class="car_structure_lower"></div>
+                <!-- Car Wheel -->
+                <div class="wheel" id="tyre">
+                    <div class="wheel-1" id="wheel1"><h3 style="color: white; margin: 4px 0 0 0; text-align: center;">+</h3></div>
+                    <div class="wheel-2" id="wheel2"><h3 style="color: white; margin: 4px 0 0 0; text-align: center;">+</h3></div>    
+                </div>
+                <!-- End Car Wheel Div -->
+        </div>
+    <!-- End Car HTML -->
+
+    <!-- Script Start -->
+    <script>
+        document.getElementById('stopButton').onclick = illuminateRed;
+        document.getElementById('slowButton').onclick = delay;
+        document.getElementById('goButton').onclick = illuminateGreen;
+
+        // Delay with 2'sec
+        function delay () {
+            illuminateYellow();
+            setTimeout(function() 
+            { 
+                illuminateGreen();
+                myMove();
+                tyreMove();
+            }, 2000);
+        }
+
+
+        // Function For Illuminate Red
+        function illuminateRed() {
+        clearLights();
+            document.getElementById('stopLight').style.backgroundColor = "red";
+            animationStop();
+        }
+
+        // Function For Illuminate Red
+        function illuminateYellow() { 
+        clearLights();
+            document.getElementById('slowLight').style.backgroundColor = "yellow";
+        }
+
+        // Function For Illuminate Red
+        function illuminateGreen() {
+            clearLights();
+            document.getElementById('goLight').style.backgroundColor = "green";
+        }
+        
+        // Clear functions
+        function clearLights() {
+            document.getElementById('stopLight').style.backgroundColor = "black";
+            document.getElementById('slowLight').style.backgroundColor = "black";
+            document.getElementById('goLight').style.backgroundColor = "black";
+        }
+
+        // Function to move the object
+        function myMove() {
+            document.getElementById('carr_structure').setAttribute("style", "animation:start 5s;"); 
+            document.getElementById('wheel1').setAttribute("style", "animation: round 1s  linear infinite;");
+            document.getElementById('wheel2').setAttribute("style", "animation: round 1s  linear infinite;");
+        }
+
+        // Function to Stop Animation
+        function animationStop() {
+            document.getElementById('carr_structure').setAttribute("style", "animation: stop;"); 
+            document.getElementById('carr_structure').setAttribute("style", "animation-play-state: paused;");
+            document.getElementById('wheel1').setAttribute("style", "animation-play-state: paused;");
+            document.getElementById('wheel2').setAttribute("style", "animation-play-state: paused;");
+        }
+        // Stop by default when browser is refresh
+        function myFunction () {
+            document.getElementById('stopLight').style.backgroundColor = "red"; 
+            document.getElementById('carr_structure').setAttribute("style", "animation: stop;");
+        }
+        
+        // tyre movement
+        function tyreMove (){
+            document.getElementById('tyre').style.animateName = "round";
+        }
+    </script>
+</body>
+</html>
